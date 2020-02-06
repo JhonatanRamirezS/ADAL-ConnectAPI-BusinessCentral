@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Getting started with the DynamicsNAVProvider
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Type providers for Dynamics NAV access.">
+    <meta name="author" content="Steffen Forkmann, Ross McKinlay">
+
+    <script src="http://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="/DynamicsNAVProvider/content/style.css" />
+    <script type="text/javascript" src="/DynamicsNAVProvider/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/fsprojects/DynamicsNAVProvider">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/DynamicsNAVProvider/index.html">DynamicsNAVProvider</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1>Getting started with the DynamicsNAVProvider</h1>
+
+<p>Open Visual Studio 2013 and create a new F# Console application. Right-click on the project and select "Manage NuGet Packages".
+Make sure the "Include Prerelease" is selected and search for "<a href="https://nuget.org/packages/DynamicsNAVProvider">DynamicsNAVProvider</a>" and press "Install":</p>
+
+<p><img src="img/NuGet.png" alt="alt text" title="Install the Dynamics NAV type provider" /></p>
+
+<p>You also need to add a reference to "System.Data.dll" to your project.</p>
+
+<p>Now you can go to the "Program.fs" file and start using the type provider:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">System</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="i">Linq</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="i">FSharp</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="i">Data</span>
+
+<span class="c">// configure the Dynamics NAV type provider with a connection string to the db</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="i">NAV</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="i">DynamicsNAV</span><span class="o">&lt;</span><span class="s">&quot;</span><span class="s">Data</span><span class="s"> </span><span class="s">Source</span><span class="s">=</span><span class="s">OMEGA</span><span class="s">;</span><span class="s">Initial</span><span class="s"> </span><span class="s">Catalog</span><span class="s">=</span><span class="s">Dev</span><span class="s">;</span><span class="s">Integrated</span><span class="s"> </span><span class="s">Security</span><span class="s">=</span><span class="s">True</span><span class="s">&quot;</span>,
+                           <span class="i">Company</span><span class="o">=</span><span class="s">&quot;</span><span class="s">CRONUS</span><span class="s"> </span><span class="s">International</span><span class="s"> </span><span class="s">Ltd</span><span class="s">.</span><span class="s">&quot;</span><span class="o">&gt;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="i">db</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="i">NAV</span><span class="o">.</span><span class="i">GetDataContext</span>()
+
+[&lt;<span onmouseout="hideTip(event, 'fs8', 10)" onmouseover="showTip(event, 'fs8', 10)" class="i">EntryPoint</span>&gt;]
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="i">main</span> <span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="i">argv</span> <span class="o">=</span> 
+    <span class="c">// print all sales headers</span>
+    <span class="k">for</span> <span onmouseout="hideTip(event, 'fs11', 13)" onmouseover="showTip(event, 'fs11', 13)" class="i">sh</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs7', 14)" onmouseover="showTip(event, 'fs7', 14)" class="i">db</span><span class="o">.</span><span class="i">``Sales Header``</span> <span class="k">do</span>
+        <span onmouseout="hideTip(event, 'fs12', 15)" onmouseover="showTip(event, 'fs12', 15)" class="i">printfn</span> <span class="s">&quot;</span><span class="s">%</span><span class="s">s</span><span class="s"> </span><span class="s">%</span><span class="s">s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs11', 16)" onmouseover="showTip(event, 'fs11', 16)" class="i">sh</span><span class="o">.</span><span class="i">``Sell-to Customer No.``</span> <span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="i">sh</span><span class="o">.</span><span class="i">``Salesperson Code``</span>
+
+    <span onmouseout="hideTip(event, 'fs13', 18)" onmouseover="showTip(event, 'fs13', 18)" class="i">Console</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs14', 19)" onmouseover="showTip(event, 'fs14', 19)" class="i">ReadKey</span>() <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 20)" onmouseover="showTip(event, 'fs15', 20)" class="i">ignore</span>
+    <span class="n">0</span> <span class="c">// exit code</span></pre>
+</td>
+</tr>
+</table>
+
+<p>Press F5 to run the project.</p>
+
+<div class="tip" id="fs1">namespace System</div>
+<div class="tip" id="fs2">namespace System.Linq</div>
+<div class="tip" id="fs3">namespace FSharp</div>
+<div class="tip" id="fs4">namespace FSharp.Data</div>
+<div class="tip" id="fs5">type NAV = obj<br /><br />Full name: Gettingstarted.NAV</div>
+<div class="tip" id="fs6">type DynamicsNAV<br /><br />Full name: FSharp.Data.DynamicsNAV<br /><em><br /><br />&lt;summary&gt;Typed representation of a database&lt;/summary&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;ConnectionString&#39;&gt;The connection string for the sql server&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Company&#39;&gt;The company&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;IndividualsAmount&#39;&gt;The amount of sample entities to project into the type system for each sql entity type. Default 1000.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;UseOptionTypes&#39;&gt;If true, F# option types will be used in place of nullable database columns.  If false, you will always receive the default value of the column&#39;s type even if it is null in the database.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;ResolutionPath&#39;&gt;The location to look for dynamically loaded assemblies containing database vendor specifc connections and custom types.&lt;/param&gt;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;param name=&#39;Owner&#39;&gt;The owner of the schema for this provider to resolve (Oracle Only)&lt;/param&gt;</em></div>
+<div class="tip" id="fs7">val db : obj<br /><br />Full name: Gettingstarted.db</div>
+<div class="tip" id="fs8">Multiple items<br />type EntryPointAttribute =<br />&#160;&#160;inherit Attribute<br />&#160;&#160;new : unit -&gt; EntryPointAttribute<br /><br />Full name: Microsoft.FSharp.Core.EntryPointAttribute<br /><br />--------------------<br />new : unit -&gt; EntryPointAttribute</div>
+<div class="tip" id="fs9">val main : argv:string [] -&gt; int<br /><br />Full name: Gettingstarted.main</div>
+<div class="tip" id="fs10">val argv : string []</div>
+<div class="tip" id="fs11">val sh : obj</div>
+<div class="tip" id="fs12">val printfn : format:Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.printfn</div>
+<div class="tip" id="fs13">type Console =<br />&#160;&#160;static member BackgroundColor : ConsoleColor with get, set<br />&#160;&#160;static member Beep : unit -&gt; unit + 1 overload<br />&#160;&#160;static member BufferHeight : int with get, set<br />&#160;&#160;static member BufferWidth : int with get, set<br />&#160;&#160;static member CapsLock : bool<br />&#160;&#160;static member Clear : unit -&gt; unit<br />&#160;&#160;static member CursorLeft : int with get, set<br />&#160;&#160;static member CursorSize : int with get, set<br />&#160;&#160;static member CursorTop : int with get, set<br />&#160;&#160;static member CursorVisible : bool with get, set<br />&#160;&#160;...<br /><br />Full name: System.Console</div>
+<div class="tip" id="fs14">Console.ReadKey() : ConsoleKeyInfo<br />Console.ReadKey(intercept: bool) : ConsoleKeyInfo</div>
+<div class="tip" id="fs15">val ignore : value:&#39;T -&gt; unit<br /><br />Full name: Microsoft.FSharp.Core.Operators.ignore</div>
+
+        </div>
+        <div class="span3">
+          <ul class="nav nav-list" id="menu">
+            <li class="nav-header">DynamicsNAVProvider</li>
+            <li><a href="/DynamicsNAVProvider/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.com/packages/DynamicsNAVProvider">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/fsprojects/DynamicsNAVProvider">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/fsprojects/DynamicsNAVProvider/blob/master/LICENSE.md">License</a></li>
+              <li><a href="http://github.com/fsprojects/DynamicsNAVProvider/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+              <li class="nav-header">Articles</li>
+              <li><a href="/DynamicsNAVProvider/gettingstarted.html">Getting started</a></li>
+              <li><a href="/DynamicsNAVProvider/queries.html">Queries</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/fsprojects/DynamicsNAVProvider"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+  </body>
+  </html>

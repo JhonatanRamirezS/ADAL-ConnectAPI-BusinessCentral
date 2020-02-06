@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>DynamicsNAVProvider - Queries
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Type providers for Dynamics NAV access.">
+    <meta name="author" content="Steffen Forkmann, Ross McKinlay">
+
+    <script src="http://code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+
+    <link type="text/css" rel="stylesheet" href="/DynamicsNAVProvider/content/style.css" />
+    <script type="text/javascript" src="/DynamicsNAVProvider/content/tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="container">
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="http://fsharp.org">fsharp.org</a></li>
+          <li><a href="http://github.com/fsprojects/DynamicsNAVProvider">github page</a></li>
+        </ul>
+        <h3 class="muted"><a href="/DynamicsNAVProvider/index.html">DynamicsNAVProvider</a></h3>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="span9" id="main">
+          
+<h1>DynamicsNAVProvider - Queries</h1>
+
+<p>It's possible to perform LINQ queries against the Dynamics NAV database. These queries are transformed into SQL and run on the SQL Server:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// count all NAV objects</span>
+<span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="i">db</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="i">Object</span><span class="o">.</span><span class="i">Count</span>()
+<span class="fsi"> val it : int = 13859</span>
+
+<span class="c">// count objects in a query expression</span>
+<span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="i">query</span>{ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="i">o</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs1', 5)" onmouseover="showTip(event, 'fs1', 5)" class="i">db</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs2', 6)" onmouseover="showTip(event, 'fs2', 6)" class="i">Object</span> <span class="k">do</span>
+       <span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="k">count</span> } 
+<span class="fsi"> val it : int = 13859</span>
+
+<span class="c">// select all customers named &quot;Steffen&quot;</span>
+<span onmouseout="hideTip(event, 'fs3', 8)" onmouseover="showTip(event, 'fs3', 8)" class="i">query</span>{ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs6', 9)" onmouseover="showTip(event, 'fs6', 9)" class="i">cus</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs1', 10)" onmouseover="showTip(event, 'fs1', 10)" class="i">db</span><span class="o">.</span><span class="i">Customer</span> <span class="k">do</span>
+       <span onmouseout="hideTip(event, 'fs7', 11)" onmouseover="showTip(event, 'fs7', 11)" class="k">where</span> (<span onmouseout="hideTip(event, 'fs6', 12)" onmouseover="showTip(event, 'fs6', 12)" class="i">cus</span><span class="o">.</span><span class="i">Name</span><span class="o">.</span><span class="i">StartsWith</span> <span class="s">&quot;</span><span class="s">Steffen</span><span class="s">&quot;</span>) 
+       <span onmouseout="hideTip(event, 'fs8', 13)" onmouseover="showTip(event, 'fs8', 13)" class="k">select</span> <span onmouseout="hideTip(event, 'fs6', 14)" onmouseover="showTip(event, 'fs6', 14)" class="i">cus</span><span class="o">.</span><span class="i">Name</span> } 
+  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs9', 15)" onmouseover="showTip(event, 'fs9', 15)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 16)" onmouseover="showTip(event, 'fs10', 16)" class="i">toArray</span></pre>
+</td>
+</tr>
+</table>
+
+<h2>Joins</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip">
+<span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre>
+</td>
+<td class="snippet"><pre class="fssnip">
+<span class="c">// select the customer name, the sales header no. and currency for all sales headers where the customer is named &quot;Steffen&quot;</span>
+<span onmouseout="hideTip(event, 'fs3', 17)" onmouseover="showTip(event, 'fs3', 17)" class="i">query</span>{ <span class="k">for</span> <span onmouseout="hideTip(event, 'fs6', 18)" onmouseover="showTip(event, 'fs6', 18)" class="i">cus</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs1', 19)" onmouseover="showTip(event, 'fs1', 19)" class="i">db</span><span class="o">.</span><span class="i">Customer</span> <span class="k">do</span>
+       <span onmouseout="hideTip(event, 'fs11', 20)" onmouseover="showTip(event, 'fs11', 20)" class="k">join</span> <span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="i">sh</span> <span class="k">in</span> <span onmouseout="hideTip(event, 'fs1', 22)" onmouseover="showTip(event, 'fs1', 22)" class="i">db</span><span class="o">.</span><span class="i">``Sales Header``</span> <span class="i">on</span> (<span class="i">cus</span><span class="o">.</span><span class="i">``No.``</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs12', 23)" onmouseover="showTip(event, 'fs12', 23)" class="i">sh</span><span class="o">.</span><span class="i">``Sell-to Customer No.``</span>)
+       <span onmouseout="hideTip(event, 'fs7', 24)" onmouseover="showTip(event, 'fs7', 24)" class="k">where</span> (<span onmouseout="hideTip(event, 'fs6', 25)" onmouseover="showTip(event, 'fs6', 25)" class="i">cus</span><span class="o">.</span><span class="i">Name</span><span class="o">.</span><span class="i">StartsWith</span> <span class="s">&quot;</span><span class="s">Steffen</span><span class="s">&quot;</span>) 
+       <span onmouseout="hideTip(event, 'fs8', 26)" onmouseover="showTip(event, 'fs8', 26)" class="k">select</span> (<span onmouseout="hideTip(event, 'fs6', 27)" onmouseover="showTip(event, 'fs6', 27)" class="i">cus</span><span class="o">.</span><span class="i">Name</span>,<span onmouseout="hideTip(event, 'fs12', 28)" onmouseover="showTip(event, 'fs12', 28)" class="i">sh</span><span class="o">.</span><span class="i">``No.``</span>,<span onmouseout="hideTip(event, 'fs12', 29)" onmouseover="showTip(event, 'fs12', 29)" class="i">sh</span><span class="o">.</span><span class="i">``Currency Code``</span>) } 
+  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs9', 30)" onmouseover="showTip(event, 'fs9', 30)" class="i">Seq</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs10', 31)" onmouseover="showTip(event, 'fs10', 31)" class="i">toArray</span></pre>
+</td>
+</tr>
+</table>
+
+<div class="tip" id="fs1">val db : obj<br /><br />Full name: Queries.db</div>
+<div class="tip" id="fs2">Multiple items<br />type Object =<br />&#160;&#160;new : unit -&gt; obj<br />&#160;&#160;member Equals : obj:obj -&gt; bool<br />&#160;&#160;member GetHashCode : unit -&gt; int<br />&#160;&#160;member GetType : unit -&gt; Type<br />&#160;&#160;member ToString : unit -&gt; string<br />&#160;&#160;static member Equals : objA:obj * objB:obj -&gt; bool<br />&#160;&#160;static member ReferenceEquals : objA:obj * objB:obj -&gt; bool<br /><br />Full name: System.Object<br /><br />--------------------<br />Object() : unit</div>
+<div class="tip" id="fs3">val query : Linq.QueryBuilder<br /><br />Full name: Microsoft.FSharp.Core.ExtraTopLevelOperators.query</div>
+<div class="tip" id="fs4">val o : obj</div>
+<div class="tip" id="fs5">custom operation: count<br /><br />Calls Linq.QueryBuilder.Count </div>
+<div class="tip" id="fs6">val cus : obj</div>
+<div class="tip" id="fs7">custom operation: where (bool)<br /><br />Calls Linq.QueryBuilder.Where </div>
+<div class="tip" id="fs8">custom operation: select (&#39;Result)<br /><br />Calls Linq.QueryBuilder.Select </div>
+<div class="tip" id="fs9">module Seq<br /><br />from Microsoft.FSharp.Collections</div>
+<div class="tip" id="fs10">val toArray : source:seq&lt;&#39;T&gt; -&gt; &#39;T []<br /><br />Full name: Microsoft.FSharp.Collections.Seq.toArray</div>
+<div class="tip" id="fs11">custom operation: join var in collection on (outerKey = innerKey). Note that parentheses are required after &#39;on&#39;<br /><br />Calls Linq.QueryBuilder.Join </div>
+<div class="tip" id="fs12">val sh : obj</div>
+
+        </div>
+        <div class="span3">
+          <ul class="nav nav-list" id="menu">
+            <li class="nav-header">DynamicsNAVProvider</li>
+            <li><a href="/DynamicsNAVProvider/index.html">Home page</a></li>
+            <li class="divider"></li>
+            <li><a href="http://nuget.com/packages/DynamicsNAVProvider">Get Library via NuGet</a></li>
+            <li><a href="http://github.com/fsprojects/DynamicsNAVProvider">Source Code on GitHub</a></li>
+            <li><a href="http://github.com/fsprojects/DynamicsNAVProvider/blob/master/LICENSE.md">License</a></li>
+              <li><a href="http://github.com/fsprojects/DynamicsNAVProvider/blob/master/RELEASE_NOTES.md">Release Notes</a></li>
+              <li class="nav-header">Articles</li>
+              <li><a href="/DynamicsNAVProvider/gettingstarted.html">Getting started</a></li>
+              <li><a href="/DynamicsNAVProvider/queries.html">Queries</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="http://github.com/fsprojects/DynamicsNAVProvider"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+  </body>
+  </html>
